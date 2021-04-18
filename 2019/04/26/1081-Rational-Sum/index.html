@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ArtificialIntelligence32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ArtificialIntelligence16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="5IoOHPeK1Gs6LKpb_pJOXhrUePDQUxzqf0hPjeAzdLo">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jiayaoo3o.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="题目Given N rational numbers in the form numerator&#x2F;denominator, you are supposed to calculate their sum. Input Specification:Each input file contains one test case. Each case starts with a positive inte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1081 Rational Sum">
+<meta property="og:url" content="http://jiayaoo3o.github.io/2019/04/26/1081-Rational-Sum/index.html">
+<meta property="og:site_name" content="jiayaoO3O&#39;s Blog">
+<meta property="og:description" content="题目Given N rational numbers in the form numerator&#x2F;denominator, you are supposed to calculate their sum. Input Specification:Each input file contains one test case. Each case starts with a positive inte">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-26T14:31:33.000Z">
+<meta property="article:modified_time" content="2021-04-18T08:23:00.146Z">
+<meta property="article:author" content="jiayao">
+<meta property="article:tag" content="PAT">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://jiayaoo3o.github.io/2019/04/26/1081-Rational-Sum/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>1081 Rational Sum | jiayaoO3O's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">jiayaoO3O's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">sudo reboot</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-Specification"><span class="nav-text">Input Specification:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-Specification"><span class="nav-text">Output Specification:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Input-1"><span class="nav-text">Sample Input 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Output-1"><span class="nav-text">Sample Output 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Input-2"><span class="nav-text">Sample Input 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Output-2"><span class="nav-text">Sample Output 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Input-3"><span class="nav-text">Sample Input 3:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample-Output-3"><span class="nav-text">Sample Output 3:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E6%84%8F"><span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiayao"
+      src="/images/pic.jpg">
+  <p class="site-author-name" itemprop="name">jiayao</p>
+  <div class="site-description" itemprop="description">重构！重构！重构！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jiayaoO3O" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jiayaoO3O" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jiayao3.14@outlook.com" title="E-Mail → jiayao3.14@outlook.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jiayaoo3o.github.io/2019/04/26/1081-Rational-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pic.jpg">
+      <meta itemprop="name" content="jiayao">
+      <meta itemprop="description" content="重构！重构！重构！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayaoO3O's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1081 Rational Sum<a href="https://github.com/jiayaoO3O/jiayaoO3O.github.io/blob/Blog/source/_posts/1081-Rational-Sum.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-26 22:31:33" itemprop="dateCreated datePublished" datetime="2019-04-26T22:31:33+08:00">2019-04-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-18 16:23:00" itemprop="dateModified" datetime="2021-04-18T16:23:00+08:00">2021-04-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">算法学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/PAT/" itemprop="url" rel="index"><span itemprop="name">PAT</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Given <em>N</em> rational numbers in the form <code>numerator/denominator</code>, you are supposed to calculate their sum.</p>
+<h3 id="Input-Specification"><a href="#Input-Specification" class="headerlink" title="Input Specification:"></a>Input Specification:</h3><p>Each input file contains one test case. Each case starts with a positive integer <em>N</em> (≤100), followed in the next line <em>N</em> rational numbers <code>a1/b1 a2/b2 ...</code> where all the numerators and denominators are in the range of <strong>long int</strong>. If there is a negative number, then the sign must appear in front of the numerator.</p>
+<h3 id="Output-Specification"><a href="#Output-Specification" class="headerlink" title="Output Specification:"></a>Output Specification:</h3><p>For each test case, output the sum in the simplest form <code>integer numerator/denominator</code> where <code>integer</code> is the integer part of the sum, <code>numerator</code> &lt;<code>denominator</code>, and the numerator and the denominator have no common factor. You must output only the fractional part if the integer part is 0.</p>
+<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input 1:"></a>Sample Input 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">2&#x2F;5 4&#x2F;15 1&#x2F;30 -2&#x2F;60 8&#x2F;3</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output 1:"></a>Sample Output 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 1&#x2F;3</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input 2:"></a>Sample Input 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4&#x2F;3 2&#x2F;3</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output 2:"></a>Sample Output 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-Input-3"><a href="#Sample-Input-3" class="headerlink" title="Sample Input 3:"></a>Sample Input 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">1&#x2F;3 -1&#x2F;6 1&#x2F;8</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-Output-3"><a href="#Sample-Output-3" class="headerlink" title="Sample Output 3:"></a>Sample Output 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7&#x2F;24</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>计算分数加法,要求如下:</p>
+<ul>
+<li>分数的结果一定要是最简分数.</li>
+<li>分子如果大于分母,则要化简为带分数,即<strong>c又a分之b</strong>的整数和分数形式,.</li>
+<li>当整数为0,只输出分数部分.</li>
+<li>当分数为0,只输出整数部分.</li>
+<li>当都为0.输出0.</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这道题第一眼看到可能会觉得很乱,因为这个题不仅要求和,还要化简,化简之后还要判定分子是否大于分母,看起来觉得很乱,但是只要仔细思考,就知道,这道题的重点其实只有4个</p>
+<ul>
+<li>为了化简,我们需要约分,而约分要用到最大公因数,所以第一个问题是,怎么快速得到最大公因数.</li>
+<li>如何进行分数的求和.</li>
+<li>分子比分母大的假分数如何化简成整数和分数形式的带分数.</li>
+<li>如何防止分子或者分母超出long int范围.</li>
+</ul>
+<p>第一个点,我们可以用<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95">辗转相除法</a>获得最大公因数,得到了最大公因数,就可以对分数进行化简.</p>
+<p>第二个点,我们直接使用分数加法公式,分子交叉相乘再相加得到分子的和,分母相乘通分.</p>
+<p>第三个点,我们其实并不需要判断分子是否大于分母,只要将分子除以分母作为整数部分即可,如果分子比分母小,那分子除以分母的结果就是0,而分子%分母的结果,就是新分子.</p>
+<p>第四个点,为了防止溢出,分数求和之后的结果要马上进行约分化简,而不能等到所有分数相加完了再化简.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>先创建一个获得最大公因数的函数:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">long</span> <span class="title">GetGreatestCommonDivisor</span>(<span class="params"><span class="built_in">long</span> numerator, <span class="built_in">long</span> denominator</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> denominator == <span class="number">0</span> ? Math.Abs(numerator) : GetGreatestCommonDivisor(denominator, numerator % denominator);</span><br><span class="line">    <span class="comment">//辗转相除法的递归形式.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再创建一个分数求和的函数,这个函数传入两个分数,返回一个<strong>已经化简了</strong>的分数:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">long</span>[] <span class="title">GetRationalSum</span>(<span class="params"><span class="built_in">long</span>[] rationalSum, <span class="built_in">long</span>[] rationalNumber</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">long</span> greatestCommonDivisor = GetGreatestCommonDivisor(rationalNumber[<span class="number">0</span>], rationalNumber[<span class="number">1</span>]);<span class="comment">//取得最大公约数.</span></span><br><span class="line">    rationalNumber[<span class="number">0</span>] = rationalNumber[<span class="number">0</span>] / greatestCommonDivisor;<span class="comment">//先将分数化简.</span></span><br><span class="line">    rationalNumber[<span class="number">1</span>] = rationalNumber[<span class="number">1</span>] / greatestCommonDivisor;</span><br><span class="line">    rationalSum[<span class="number">0</span>] = rationalSum[<span class="number">0</span>] * rationalNumber[<span class="number">1</span>] + rationalSum[<span class="number">1</span>] * rationalNumber[<span class="number">0</span>];<span class="comment">//分子交叉相乘</span></span><br><span class="line">    rationalSum[<span class="number">1</span>] = rationalSum[<span class="number">1</span>] * rationalNumber[<span class="number">1</span>];<span class="comment">//分母通分.</span></span><br><span class="line">    greatestCommonDivisor = GetGreatestCommonDivisor(rationalSum[<span class="number">0</span>], rationalSum[<span class="number">1</span>]);<span class="comment">//获得求和结果的最大公约数.</span></span><br><span class="line">    rationalSum[<span class="number">0</span>] = rationalSum[<span class="number">0</span>] / greatestCommonDivisor;<span class="comment">//将结果也化简.</span></span><br><span class="line">    rationalSum[<span class="number">1</span>] = rationalSum[<span class="number">1</span>] / greatestCommonDivisor;</span><br><span class="line">    <span class="keyword">return</span> rationalSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Console.ReadLine();<span class="comment">//第一个数字没用到.</span></span><br><span class="line">    <span class="built_in">string</span>[] inputs = Console.ReadLine().Split();<span class="comment">//用空格分割分数.</span></span><br><span class="line">    <span class="built_in">long</span>[] rationalSum = <span class="keyword">new</span> <span class="built_in">long</span>[<span class="number">2</span>] &#123; <span class="number">0</span>, <span class="number">1</span> &#125;;<span class="comment">//先初始化一个存放结果的分数为0/1.</span></span><br><span class="line">    <span class="built_in">long</span>[] rationalNumber = <span class="keyword">new</span> <span class="built_in">long</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="built_in">long</span> integer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> input <span class="keyword">in</span> inputs)</span><br><span class="line">    &#123;</span><br><span class="line">        rationalNumber[<span class="number">0</span>] = <span class="built_in">long</span>.Parse(input.Split(<span class="string">&#x27;/&#x27;</span>)[<span class="number">0</span>]);<span class="comment">//对于每个分数,用/分割分子分母.</span></span><br><span class="line">        rationalNumber[<span class="number">1</span>] = <span class="built_in">long</span>.Parse(input.Split(<span class="string">&#x27;/&#x27;</span>)[<span class="number">1</span>]);</span><br><span class="line">        rationalSum = GetRationalSum(rationalSum, rationalNumber);</span><br><span class="line">    &#125;</span><br><span class="line">    integer = rationalSum[<span class="number">0</span>] / rationalSum[<span class="number">1</span>];<span class="comment">//获得整数部分.</span></span><br><span class="line">    rationalSum[<span class="number">0</span>] = rationalSum[<span class="number">0</span>] % rationalSum[<span class="number">1</span>];<span class="comment">//更新分子.</span></span><br><span class="line">    <span class="keyword">if</span> (integer == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (rationalSum[<span class="number">0</span>] == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;&#123;0&#125;/&#123;1&#125;&quot;</span>, rationalSum[<span class="number">0</span>], rationalSum[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (rationalSum[<span class="number">0</span>] == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(integer);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;&#123;0&#125; &#123;1&#125;/&#123;2&#125;&quot;</span>, integer, rationalSum[<span class="number">0</span>], rationalSum[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="jiayao 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="jiayao 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>jiayao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://jiayaoo3o.github.io/2019/04/26/1081-Rational-Sum/" title="1081 Rational Sum">http://jiayaoo3o.github.io/2019/04/26/1081-Rational-Sum/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/PAT/" rel="tag"># PAT</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/04/26/1077-Kuchiguse/" rel="prev" title="1077 Kuchiguse">
+                  <i class="fa fa-chevron-left"></i> 1077 Kuchiguse
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/04/28/1084-Broken-Keyboard/" rel="next" title="1084 Broken Keyboard">
+                  1084 Broken Keyboard <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiayao</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+    <div class="pjax">
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'all'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+    </div>
+</body>
+</html>
